@@ -1,0 +1,7 @@
+{
+  "name": "GUI_Latency_Tester",
+  "version-string": "1.0.0",
+  "dependencies": [
+    "cpr"
+  ]
+}

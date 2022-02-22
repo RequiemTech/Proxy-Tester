@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/Images">
+        <file>Requiem Technologies-01.png</file>
+        <file>icon.ico</file>
+    </qresource>
+</RCC>
