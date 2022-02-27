@@ -32,5 +32,4 @@ RESOURCES += \
 
 DISTFILES += \
     ../../Node.JS Projects/Latency Tester/assets/icon.ico \
-    LICENSE \
-    vcpkg.json
+    LICENSE

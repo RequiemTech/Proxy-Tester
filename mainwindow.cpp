@@ -108,6 +108,13 @@ bool sendRequest(QString URL, QString proxyHost, QString proxyPort, QString prox
 void MainWindow::on_TestBTN_clicked()
 {
     if (ui->MainTable->rowCount() > 0){
+
+        ui->MainTable->setSortingEnabled(false);
+        ui->ImportBTN->setEnabled(false);
+        ui->ClearBTN->setEnabled(false);
+        ui->ExportBTN->setEnabled(false);
+        ui->TestBTN->setEnabled(false);
+
         ui->progressBar->setVisible(true);
         QString URL = ui->URLBox->text();
         for (int i = 0; i < ui->MainTable->rowCount(); i++) {\
@@ -138,6 +145,11 @@ void MainWindow::on_TestBTN_clicked()
             ui->progressBar->setValue(percentComplete);
             ui->MainTable->scrollToItem(ui->MainTable->item(i,0));
         }
+        ui->MainTable->setSortingEnabled(true);
+        ui->ImportBTN->setEnabled(true);
+        ui->ClearBTN->setEnabled(true);
+        ui->ExportBTN->setEnabled(true);
+        ui->TestBTN->setEnabled(true);
     }
 }
 
@@ -153,35 +165,37 @@ void MainWindow::on_ImportBTN_clicked()
         ui->progressBar->setVisible(false);
         ui->progressBar->setValue(0);
         QStringList proxyData = proxyInput.proxies.split('\n');
-
         for (int j = 0; j < proxyData.count(); j++) {
-            ui->MainTable->setRowCount(ui->MainTable->rowCount() + 1);
-            QTableWidgetItem *item;
-            QStringList proxyInfo = proxyData[j].split(":");
-            for (int i = 0; i < ui->MainTable->columnCount(); i++) {
-                item = new QTableWidgetItem;
-                switch(i) {
-                case(0):
-                    item->setText(proxyInfo[0]);
-                    break;
-                case(1):
-                    item->setText(proxyInfo[1]);
-                    break;
-                case(2):
-                    item->setText(proxyInfo[2]);
-                    break;
-                case(3):
-                    item->setText(proxyInfo[3]);
-                    break;
-                case(4):
-                    item->setText("");
-                    break;
-                case(5):
-                    item->setText("");
-                    break;
+            if (proxyData[j] != ""){
+                ui->MainTable->setRowCount(ui->MainTable->rowCount() + 1);
+                QTableWidgetItem *item;
+                QStringList proxyInfo = proxyData[j].split(":");
+                for (int i = 0; i < ui->MainTable->columnCount(); i++) {
+                    item = new QTableWidgetItem;
+                    switch(i) {
+                    case(0):
+                        item->setText(proxyInfo[0]);
+                        break;
+                    case(1):
+                        item->setText(proxyInfo[1]);
+                        break;
+                    case(2):
+                        item->setText(proxyInfo[2]);
+                        break;
+                    case(3):
+                        item->setText(proxyInfo[3]);
+                        break;
+                    case(4):
+                        item->setText("");
+                        break;
+                    case(5):
+                        item->setText("");
+                        break;
+                    }
+                    item->setTextAlignment(Qt::AlignCenter);
+                    ui->MainTable->setItem(ui->MainTable->rowCount() - 1, i, item);
                 }
-                item->setTextAlignment(Qt::AlignCenter);
-                ui->MainTable->setItem(ui->MainTable->rowCount() - 1, i, item);
+
             }
         }
     }
